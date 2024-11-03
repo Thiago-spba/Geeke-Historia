@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>História com Seu Tempo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="cabecalho">
+        <h1>História com Seu Tempo</h1>
+        <p><span class="destaque">Abra a porta para o passado e descubra curiosidades históricas que vão te fascinar.</span></p>
+            </header>
+
+    <!-- Grade para exibir artigos -->
+    <div id="grade-artigos" class="grade-artigos"></div>
+
+    <!-- Botão flutuante -->
+    <button id="float-button" class="float-button">+</button>
+    
+    <!-- Opções do botão flutuante -->
+    <div id="float-options" class="float-options" style="display: none;">
+        <a href="adicionar.html" id="link-adicionar">Adicionar Artigo</a>
+        <a href="deletar.html" id="link-deletar">Deletar Artigo</a>
+    </div>
+
+    <!-- Estrutura do Pop-up -->
+    <div class="popup" id="popup" style="display: none;">
+        <div class="popup-conteudo">
+            <h2 id="titulo-artigo">Título do Artigo</h2>
+            <img id="imagem-artigo" src="" alt="Imagem do artigo" style="max-width:100%; height:auto;">
+            <p id="conteudo-artigo">Conteúdo do artigo será exibido aqui.</p>
+            
+            <!-- Botão fechar no final do pop-up como "X" dentro de um círculo -->
+            <div class="fechar-popup-container">
+                <button class="fechar-popup" onclick="fecharPopup()">X</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
