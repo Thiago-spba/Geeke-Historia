@@ -125,7 +125,7 @@ function configurarBotaoFlutuante() {
 function configurarFormularioAdicionar() {
     alert('Esta função de adição não é suportada no GitHub Pages, pois requer um backend.');
 }
-=======
+
 document.addEventListener('DOMContentLoaded', () => {
     const currentPage = window.location.pathname;
 
@@ -253,4 +253,4 @@ function configurarBotaoFlutuante() {
 function configurarFormularioAdicionar() {
     alert('Esta função de adição não é suportada no GitHub Pages, pois requer um backend.');
 }
->>>>>>> 51af31f8061ba5fa293e786e19aad3bde38d96c6
+
