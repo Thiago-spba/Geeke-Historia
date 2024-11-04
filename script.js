@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const currentPage = window.location.pathname;
 
-    // Verifica a página atual e chama a função adequada
+    // Verifica a página atual
     if (currentPage.includes('index') || currentPage === '/' || currentPage === '/index.html') {
         carregarArtigos();
     } else if (currentPage.includes('adicionar')) {
@@ -16,12 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
 // Função para carregar e exibir os artigos na página inicial
 async function carregarArtigos() {
     try {
+        // Carrega o JSON diretamente do arquivo db.json para uso no GitHub Pages
         const response = await fetch('./db.json'); // Carrega o JSON localmente
         if (!response.ok) throw new Error('Erro ao carregar os artigos');
 
         const dados = await response.json();
-        console.log("Artigos carregados:", dados); // Verifica se os dados estão sendo carregados corretamente
-
         const artigos = dados.artigos; // Obtém os artigos do JSON
         const gradeArtigos = document.getElementById('grade-artigos');
         gradeArtigos.innerHTML = ''; // Limpa o conteúdo existente
@@ -55,7 +54,6 @@ function criarCardArtigo(artigo) {
     // Configura o evento de clique para abrir o pop-up com os detalhes do artigo
     const botaoLer = card.querySelector('.botao-ler-artigo');
     botaoLer.addEventListener('click', () => {
-        console.log("Botão 'Ler Artigo' clicado"); // Verifica se o clique está funcionando
         abrirPopup(artigo.titulo, artigo.conteudo, imagemSrc);
     });
 
@@ -64,7 +62,6 @@ function criarCardArtigo(artigo) {
 
 // Função para abrir o pop-up com o conteúdo do artigo
 function abrirPopup(titulo, conteudo, imagemSrc) {
-    console.log("Abrindo popup com:", titulo, conteudo, imagemSrc); // Verifica se os dados estão corretos
     const popup = document.getElementById('popup');
     const tituloArtigo = document.getElementById('titulo-artigo');
     const conteudoArtigo = document.getElementById('conteudo-artigo');
@@ -77,14 +74,12 @@ function abrirPopup(titulo, conteudo, imagemSrc) {
 
     // Exibe o pop-up
     popup.style.display = 'block';
-    console.log("Popup exibido"); // Confirma que o popup está sendo exibido
 }
 
 // Função para fechar o pop-up
 function fecharPopup() {
     const popup = document.getElementById('popup');
     popup.style.display = 'none';
-    console.log("Popup fechado"); // Confirma que o popup foi fechado
 }
 
 // Função para carregar artigos na página de deletar
@@ -128,7 +123,6 @@ function configurarBotaoFlutuante() {
     if (floatButton && floatOptions) {
         floatButton.addEventListener('click', () => {
             floatOptions.style.display = floatOptions.style.display === 'block' ? 'none' : 'block';
-            console.log("Botão flutuante clicado, opções exibidas/ocultadas"); // Verifica se o botão flutuante foi clicado
         });
     } else {
         console.error("Elementos do botão flutuante não encontrados");
