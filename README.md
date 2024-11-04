@@ -1,4 +1,10 @@
-Geeke-Historia
+### Status das Funcionalidades
+
+Este projeto está em fase de desenvolvimento e algumas funcionalidades ainda não estão 100% operacionais. Devido às limitações do GitHub Pages e do servidor de hospedagem utilizado, as ações de adicionar e deletar artigos não estão sendo suportadas corretamente no ambiente atual. Essas funcionalidades exigem um backend dinâmico, que não é oferecido pelo GitHub Pages, e por isso, no momento, a adição e exclusão de conteúdo não funcionam como esperado.
+
+Estamos trabalhando para encontrar soluções alternativas que possibilitem uma experiência completa, mesmo em ambientes de hospedagem com restrições. Agradecemos pela compreensão e paciência enquanto ajustamos o projeto.
+
+## Geeke-Historia
 
 **Geeke-Historia** é um projeto pessoal desenvolvido como parte do desafio Alura One. O objetivo do projeto é criar um sistema CRUD (Create, Read, Update, Delete) para gerenciar registros de maneira eficiente.
 
@@ -19,7 +25,7 @@ O projeto ainda está em desenvolvimento, mas já conta com as principais funcio
 - HTML
 - CSS
 - JavaScript
-- Node.js (ou qualquer outra tecnologia relevante para o backend)
+- Node.js 
 
 ## Status do Projeto
 
@@ -30,3 +36,4 @@ O projeto **Geeke-Historia** está em fase de desenvolvimento. Funcionalidades f
 1. Clone o repositório:
    ```bash
    git clone https://github.com/Thiago-spba/Geeke-Historia.git
+
