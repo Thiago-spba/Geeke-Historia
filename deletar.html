@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deletar Artigo</title>
     <style>
-        /* Definindo variáveis para cores e temas */
         :root {
             --cor-primaria: #0a0a0a;
             --cor-secundaria: #f0f0f0;
@@ -26,7 +25,6 @@
             flex-direction: column;
         }
 
-        /* Efeito de estrelas no fundo */
         body::before {
             content: '';
             position: absolute;
@@ -88,7 +86,7 @@
         }
 
         .artigo-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             box-shadow: 0 12px 40px rgba(100, 255, 218, 0.2);
         }
 
@@ -115,20 +113,20 @@
         }
 
         input[type="checkbox"]:checked {
-            background-color: var(--cor-acento);
+            background-color: var(--cor-erro);
+            border-color: var(--cor-erro);
         }
 
         input[type="checkbox"]:checked::after {
             content: '✓';
             position: absolute;
-            color: var(--cor-primaria);
+            color: white;
             font-size: 16px;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
 
-        /* Botão voltar */
         .back-button {
             position: fixed;
             top: 2rem;
@@ -151,54 +149,38 @@
             transform: translateY(-2px);
         }
 
-        /* Texto de confirmação */
-        .confirmation-text {
-            position: fixed;
-            top: 1rem;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--cor-erro);
+        .botao-deletar {
+            margin-top: 2rem;
+            background: var(--cor-erro);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
             font-weight: 500;
-            font-size: 1.1rem;
-            animation: pulse 2s infinite;
-            z-index: 2;
+            transition: all 0.3s ease;
         }
 
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.6; }
-            100% { opacity: 1; }
+        .botao-deletar:hover {
+            background: #ff3333;
+            transform: translateY(-2px);
         }
 
-        /* Responsividade para telas menores */
         @media (max-width: 1024px) {
             .container {
-                flex-direction: column;
-                gap: 1.5rem;
+                padding: 1.5rem;
             }
 
             .lista-artigos {
                 max-height: 50vh;
             }
-
-            .back-button {
-                top: 1rem;
-                right: 1rem;
-            }
         }
 
         @media (max-width: 480px) {
             .back-button {
-                top: 1rem;
-                right: 1rem;
                 padding: 0.6rem 1rem;
                 font-size: 0.8rem;
-            }
-
-            .confirmation-text {
-                font-size: 0.9rem;
-                width: 90%;
-                text-align: center;
             }
 
             .artigo-card {
@@ -212,38 +194,79 @@
     </style>
 </head>
 <body>
-    <!-- Botão para voltar à página inicial -->
     <a href="index.html" class="back-button">Voltar à página inicial</a>
     
-    <div class="confirmation-text">Tem certeza que deseja deletar este artigo?</div>
-    
     <div class="container">
-        <!-- Área para exibir os artigos carregados para exclusão -->
         <div id="grade-artigos-deletar" class="lista-artigos">
-            <!-- Card de artigo 1 -->
-            <div class="artigo-card">
-                <div class="artigo-titulo">Artigo 1</div>
-                <div class="checkbox-wrapper">
-                    <input type="checkbox" id="artigo1">
-                </div>
-            </div>
-            <!-- Card de artigo 2 -->
-            <div class="artigo-card">
-                <div class="artigo-titulo">Artigo 2</div>
-                <div class="checkbox-wrapper">
-                    <input type="checkbox" id="artigo2">
-                </div>
-            </div>
-            <!-- Card de artigo 3 -->
-            <div class="artigo-card">
-                <div class="artigo-titulo">Artigo 3</div>
-                <div class="checkbox-wrapper">
-                    <input type="checkbox" id="artigo3">
-                </div>
-            </div>
+            <!-- Os artigos serão carregados aqui dinamicamente -->
         </div>
+        <button id="botao-deletar" class="botao-deletar">Deletar Selecionados</button>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Função para carregar os artigos para deletar
+        async function carregarArtigosDeletar() {
+            try {
+                const response = await fetch('/db.json');
+                if (!response.ok) throw new Error('Erro ao carregar os artigos.');
+                const dados = await response.json();
+                const artigos = dados.artigos;
+                const gradeArtigosDeletar = document.getElementById('grade-artigos-deletar');
+                
+                if (!gradeArtigosDeletar) {
+                    throw new Error('Elemento grade-artigos-deletar não encontrado.');
+                }
+
+                gradeArtigosDeletar.innerHTML = '';
+                artigos.forEach((artigo) => {
+                    const card = document.createElement('div');
+                    card.className = 'artigo-card';
+                    card.innerHTML = `
+                        <div class="artigo-titulo">${artigo.titulo}</div>
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="artigo-${artigo.id}" data-id="${artigo.id}">
+                        </div>
+                    `;
+                    gradeArtigosDeletar.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Erro ao carregar os artigos:', error);
+            }
+        }
+
+        // Função para deletar artigos selecionados
+        async function deletarArtigosSelecionados() {
+            const checkboxesSelecionados = document.querySelectorAll('input[type="checkbox"]:checked');
+            const idsParaDeletar = Array.from(checkboxesSelecionados).map(checkbox => checkbox.dataset.id);
+            
+            if (idsParaDeletar.length === 0) {
+                alert('Selecione pelo menos um artigo para deletar.');
+                return;
+            }
+
+            if (confirm('Tem certeza que deseja deletar os artigos selecionados?')) {
+                try {
+                    // Aqui você implementaria a lógica para deletar os artigos do seu banco de dados
+                    console.log('Artigos para deletar:', idsParaDeletar);
+                    
+                    // Após deletar com sucesso, recarrega a lista
+                    await carregarArtigosDeletar();
+                    alert('Artigos deletados com sucesso!');
+                } catch (error) {
+                    console.error('Erro ao deletar artigos:', error);
+                    alert('Erro ao deletar os artigos. Tente novamente.');
+                }
+            }
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarArtigosDeletar();
+            const botaoDeletar = document.getElementById('botao-deletar');
+            if (botaoDeletar) {
+                botaoDeletar.addEventListener('click', deletarArtigosSelecionados);
+            }
+        });
+    </script>
 </body>
 </html>
