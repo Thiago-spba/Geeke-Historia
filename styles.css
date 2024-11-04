@@ -184,3 +184,78 @@ body {
         font-size: 0.9rem;
     }
 }
+/* Estilos para o popup */
+#popup {
+    display: none; /* Escondido por padrão */
+    position: fixed; /* Fixa o popup sobre a tela */
+    top: 50%; /* Centraliza o popup verticalmente */
+    left: 50%; /* Centraliza o popup horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta a centralização */
+    background-color: black; /* Fundo preto */
+    padding: 20px; /* Espaçamento interno */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); /* Sombra */
+    z-index: 1000; /* Garante que o popup esteja na frente */
+    max-width: 80%; /* Limita a largura do popup */
+    max-height: 80%; /* Limita a altura do popup */
+    overflow-y: auto; /* Permite rolagem no conteúdo */
+    text-align: left; /* Alinha o texto à esquerda */
+    border: 2px solid transparent; /* Borda transparente inicial */
+    animation: borderGlow 1.5s infinite alternate; /* Animação da borda */
+}
+
+/* Animação da borda cintilante */
+@keyframes borderGlow {
+    0% {
+        border-color: rgba(100, 255, 218, 0.5);
+        box-shadow: 0 0 10px rgba(100, 255, 218, 0.5), 0 0 20px rgba(100, 255, 218, 0.3);
+    }
+    100% {
+        border-color: rgba(100, 255, 218, 1);
+        box-shadow: 0 0 20px rgba(100, 255, 218, 1), 0 0 30px rgba(100, 255, 218, 0.7);
+    }
+}
+
+/* Botão de fechar no centro do topo */
+.fechar-popup-top {
+    position: absolute;
+    top: 10px;
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translateX(-50%); /* Ajusta para manter no centro */
+    background-color: #32ff7e; /* Verde tecnológico */
+    color: black; /* Cor do texto */
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* Botão de fechar no final, centralizado */
+.fechar-popup-bottom {
+    display: block;
+    margin: 20px auto; /* Centraliza o botão no final do popup */
+    background-color: #32ff7e; /* Verde tecnológico */
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50%; /* Arredondado */
+    cursor: pointer;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* Estilo do título, conteúdo e imagem */
+#titulo-artigo, #conteudo-artigo {
+    color: white; /* Texto branco para contraste com o fundo preto */
+    text-align: justify; /* Justifica o texto */
+}
+
+#imagem-artigo {
+    display: block;
+    margin: 10px auto; /* Centraliza a imagem horizontalmente */
+    max-width: 100%; /* Garante que a imagem ocupe no máximo a largura do popup */
+    height: auto;
+    text-align: justify; /* Justifica o conteúdo da imagem */
+}
